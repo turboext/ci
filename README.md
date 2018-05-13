@@ -1,2 +1,1 @@
-# ci
-Tiny CI for TurboExt
+# turboext-ci

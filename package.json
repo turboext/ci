@@ -1,0 +1,27 @@
+{
+  "name": "turboext-ci",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/turboext/ci.git"
+  },
+  "author": "sbmaxx",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/turboext/ci/issues"
+  },
+  "homepage": "https://github.com/turboext/ci#readme",
+  "dependencies": {
+    "@octokit/rest": "15.4.1",
+    "async": "2.6.0",
+    "eslint": "4.19.1",
+    "github-webhook-handler": "0.7.1",
+    "pm2": "2.10.3"
+  },
+  "private": true
+}
