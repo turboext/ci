@@ -13,7 +13,7 @@ function getURLs(str, pull) {
         return [];
     }
 
-    return match.map(url => {
+    return match.filter(url => url !== 'https://yandex.ru/turbo?text=[URL]').map(url => {
         try {
             const before = new URL(url);
             before.hostname = 'master.turboext.net';
