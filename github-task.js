@@ -5,7 +5,7 @@ const separator = '<span id="turbo-content-start"></span>';
 const line = '\n****\n';
 
 function getURLs(str, pull) {
-    const re = /https:\/\/yandex\.ru\/turbo\?text=[^\s]+/g;
+    const re = /https:\/\/yandex\.ru\/turbo\?text=[^\s|)]+/g;
 
     const match = str.match(re);
 
@@ -48,9 +48,9 @@ module.exports = async function githubTask(payload) {
 
         const original = data.body ? data.body.split(separator)[0] : '';
 
-        const beta = `🚀 — [master](https://master.turboext.net), [pull request](https://pull-${number}.turboext.net)`;
+        const beta = `🚀 [master](https://master.turboext.net), [pull request](https://pull-${number}.turboext.net)`;
         const beautify = url => {
-            return `🚀 ${url.text} — [master](${url.before}), [pull request](${url.after})`;
+            return `🚀 ${url.text} [master](${url.before}), [pull request](${url.after})`;
         };
 
         const urls = getURLs(original, number);
