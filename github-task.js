@@ -48,9 +48,9 @@ module.exports = async function githubTask(payload) {
 
         const original = data.body ? data.body.split(separator)[0] : '';
 
-        const beta = `🚀 [master](https://master.turboext.net), [pull request](https://pull-${number}.turboext.net)`;
+        const beta = `🚀 [master](https://master.turboext.net) [pull request](https://pull-${number}.turboext.net)`;
         const beautify = url => {
-            return `🚀 ${url.text} [master](${url.before}), [pull request](${url.after})`;
+            return `🚀 ${url.text}\n * [master](${url.before})\n * [pull request](${url.after})\n`;
         };
 
         const urls = getURLs(original, number);
