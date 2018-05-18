@@ -13,7 +13,12 @@ function getURLs(str, pull) {
         return [];
     }
 
-    return match.filter(url => url !== 'https://yandex.ru/turbo?text=[URL]').map(url => {
+    const examples = [
+        'https://yandex.ru/turbo?text=https://rozhdestvenskiy.ru/',
+        'https://yandex.ru/turbo?text=[URL]'
+    ];
+
+    return match.filter(url => !examples.includes(url)).map(url => {
         try {
             const before = new URL(url);
             before.hostname = 'master.turboext.net';
@@ -26,7 +31,9 @@ function getURLs(str, pull) {
             return {
                 text,
                 before: before.toString(),
-                after: after.toString()
+                beforeFrame: before.toString().replace('/turbo', '/frame'),
+                after: after.toString(),
+                afterFrame: after.toString().replace('/turbo', '/frame')
             };
         } catch(e) {
             return false;
@@ -48,9 +55,13 @@ module.exports = async function githubTask(payload) {
 
         const original = data.body ? data.body.split(separator)[0] : '';
 
-        const beta = `🚀 [master](https://master.turboext.net)\n🚀[pull request](https://pull-${number}.turboext.net)`;
+        const beta = `🚀 [master](https://master.turboext.net)\n🚀 [pull request](https://pull-${number}.turboext.net)`;
         const beautify = url => {
-            return `${url.text}\n🚀 [master](${url.before})\n🚀 [pull request](${url.after})\n`;
+            return [
+                url.text,
+                `🚀 [master](${url.before}) [master iframe](${url.beforeFrame})`,
+                `🚀 [PR](${url.after}) [PR iframe](${url.afterFrame})\n`
+            ].join('\n');
         };
 
         const urls = getURLs(original, number);
